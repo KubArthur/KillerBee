@@ -1,0 +1,17 @@
+{
+  "name": "killerbee",
+  "version": "1.0.0",
+  "description": "KillerBee's software.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "http-proxy-middleware": "^3.0.2"
+  }
+}
