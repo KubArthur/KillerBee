@@ -4,14 +4,14 @@ const cors = require("cors");
 const allowRequest = require("./middlewares/allowRequest");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const PROXY_TARGETS = {
-  mc_modele: process.env.MC_MODELE_URL,
-  mc_ingredient: process.env.MC_INGREDIENT_URL,
-  mc_fabrication: process.env.MC_FABRICATION_URL,
-};
-
 const app = express();
 const port = process.env.PORT;
+
+const PROXY_TARGETS = {
+  ms_modele: process.env.MC_MODELE_URL,
+  ms_ingredient: process.env.MC_INGREDIENT_URL,
+  ms_process: process.env.MC_PROCESS_URL,
+};
 
 app.use(cors());
 

@@ -1,10 +1,14 @@
 const allowRequest = (req, res, next) => {
   try {
-    if (req.headers.origin.startsWith(process.env.ALLOWED_ORIGIN)) {
+    if (
+      req.originalUrl.startsWith("/api/") ||
+      req.headers.referer.includes("/api") ||
+      req.headers.origin.startsWith(process.env.ALLOWED_ORIGIN)
+    ) {
       next();
     }
   } catch (err) {
-    res.status(403).json({ message: "Forbidden" });
+    res.status(406).json({ message: "Forbidden" });
   }
 };
 
