@@ -1,0 +1,184 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Process API",
+    "version": "1.0.0",
+    "description": "API to manage processes"
+  },
+  "paths": {
+    "/api/ms_process/create": {
+      "post": {
+        "summary": "Create a new process",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Manufacturing Process"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Process for creating products"
+                  },
+                  "model": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "steps_and_descriptions_of_validation_tests": {
+                    "type": "string",
+                    "example": "Step 1: Quality check, Step 2: Safety test"
+                  }
+                },
+                "required": ["name", "description", "model"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Process created successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_process": {
+      "get": {
+        "summary": "Get all active processes",
+        "responses": {
+          "200": {
+            "description": "List of processes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Process"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No processes found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_process/update": {
+      "put": {
+        "summary": "Update a process",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_process": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Updated process name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Updated process description"
+                  },
+                  "model": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "steps_and_descriptions_of_validation_tests": {
+                    "type": "string",
+                    "example": "Updated steps and tests"
+                  }
+                },
+                "required": ["id_process", "name", "description", "model"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Process updated successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_process/{id_process}": {
+      "delete": {
+        "summary": "Deactivate a process by ID",
+        "parameters": [
+          {
+            "name": "id_process",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the process to deactivate"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Process deactivated successfully"
+          },
+          "404": {
+            "description": "Process not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Process": {
+        "type": "object",
+        "properties": {
+          "id_process": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Manufacturing Process"
+          },
+          "description": {
+            "type": "string",
+            "example": "Process for creating products"
+          },
+          "model": {
+            "type": "integer",
+            "example": 1
+          },
+          "steps_and_descriptions_of_validation_tests": {
+            "type": "string",
+            "example": "Step 1: Quality check, Step 2: Safety test"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      }
+    }
+  }
+}

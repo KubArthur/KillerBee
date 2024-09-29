@@ -2,7 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const allowRequest = require("./middlewares/allowRequest");
+const swaggerUi = require("swagger-ui-express");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const { mergeSwaggerFiles } = require("./swagger");
 
 const app = express();
 const port = process.env.PORT;
@@ -29,6 +31,11 @@ Object.entries(PROXY_TARGETS).forEach(([path, target]) => {
   );
 });
 
+mergeSwaggerFiles().then((mergedSwagger) => {
+  app.use("/api-docs", swaggerUi.serve);
+  app.get("/api-docs", swaggerUi.setup(mergedSwagger));
+});
+
 app.listen(port, () => {
-  console.log(`🚀 App running on http://localhost:${port}`);
+  console.log(`🚀 App running on http://localhost:${port}/api-docs`);
 });

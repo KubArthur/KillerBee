@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Modele API",
+    "version": "1.0.0",
+    "description": "API to manage modeles and Cook relations"
+  },
+  "paths": {
+    "/api/ms_modele/create": {
+      "post": {
+        "summary": "Create a new modele and its Cook relations",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Model A"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "A description of the model"
+                  },
+                  "unit_price_excluding_tax": {
+                    "type": "integer",
+                    "example": 100
+                  },
+                  "range": {
+                    "type": "integer",
+                    "example": 10
+                  },
+                  "weights": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 15.5
+                  },
+                  "ingredients": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "example": [1, 2, 3]
+                  }
+                },
+                "required": [
+                  "name",
+                  "description",
+                  "unit_price_excluding_tax",
+                  "range",
+                  "weights"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Modele and Cook relations created successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_modele": {
+      "get": {
+        "summary": "Get all active modeles and their Cook relations",
+        "responses": {
+          "200": {
+            "description": "List of modeles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Modele"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No modeles found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_modele/update": {
+      "put": {
+        "summary": "Update a modele and its Cook relations",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_modele": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Updated Model A"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Updated description"
+                  },
+                  "unit_price_excluding_tax": {
+                    "type": "integer",
+                    "example": 120
+                  },
+                  "range": {
+                    "type": "integer",
+                    "example": 12
+                  },
+                  "weights": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 16.0
+                  },
+                  "ingredients": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "example": [1, 3, 5]
+                  }
+                },
+                "required": [
+                  "id_modele",
+                  "name",
+                  "description",
+                  "unit_price_excluding_tax",
+                  "range",
+                  "weights"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Modele updated successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_modele/{id_modele}": {
+      "delete": {
+        "summary": "Deactivate a modele by ID",
+        "parameters": [
+          {
+            "name": "id_modele",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the modele to deactivate"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modele deactivated successfully"
+          },
+          "404": {
+            "description": "Modele not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Modele": {
+        "type": "object",
+        "properties": {
+          "id_modele": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Model A"
+          },
+          "description": {
+            "type": "string",
+            "example": "A description of the model"
+          },
+          "unit_price_excluding_tax": {
+            "type": "integer",
+            "example": 100
+          },
+          "range": {
+            "type": "integer",
+            "example": 10
+          },
+          "weights": {
+            "type": "number",
+            "format": "float",
+            "example": 15.5
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "Cook": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id_modele": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "id_ingredient": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

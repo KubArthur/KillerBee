@@ -1,0 +1,160 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ingredients API",
+    "version": "1.0.0",
+    "description": "API to manage ingredients"
+  },
+  "paths": {
+    "/api/ms_ingredient/create": {
+      "post": {
+        "summary": "Create a new ingredient",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Tomato"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Fresh tomato for salads"
+                  }
+                },
+                "required": ["name", "description"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ingredient created successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_ingredient": {
+      "get": {
+        "summary": "Get all active ingredients",
+        "responses": {
+          "200": {
+            "description": "List of ingredients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ingredient"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No ingredients found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_ingredient/update": {
+      "put": {
+        "summary": "Update an ingredient",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_ingredient": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Updated name"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Updated description"
+                  }
+                },
+                "required": ["id_ingredient", "name", "description"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ingredient updated successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/ms_ingredient/{id_ingredient}": {
+      "delete": {
+        "summary": "Deactivate an ingredient by ID",
+        "parameters": [
+          {
+            "name": "id_ingredient",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the ingredient to deactivate"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingredient deactivated successfully"
+          },
+          "404": {
+            "description": "Ingredient not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Ingredient": {
+        "type": "object",
+        "properties": {
+          "id_ingredient": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Tomato"
+          },
+          "description": {
+            "type": "string",
+            "example": "Fresh tomato for salads"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      }
+    }
+  }
+}
