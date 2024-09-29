@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
+const Cook = require("./cook");
 
 const Modele = sequelize.define("Modele", {
   id_modele: {
@@ -32,5 +33,7 @@ const Modele = sequelize.define("Modele", {
     allowNull: false,
   },
 });
+
+Modele.hasMany(Cook, { foreignKey: "id_modele" });
 
 module.exports = Modele;

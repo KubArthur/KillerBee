@@ -8,7 +8,7 @@ const allowRequest = (req, res, next) => {
       next();
     }
   } catch (err) {
-    res.status(406).json({ message: "Forbidden" });
+    res.status(403).json({ message: "Forbidden" });
   }
 };
 
