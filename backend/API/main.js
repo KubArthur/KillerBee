@@ -10,15 +10,23 @@ const app = express();
 const port = process.env.PORT;
 
 const PROXY_TARGETS = {
-  ms_modele: process.env.MC_MODELE_URL,
-  ms_ingredient: process.env.MC_INGREDIENT_URL,
-  ms_process: process.env.MC_PROCESS_URL,
+  ms_modele: process.env.MS_MODELE_URL,
+  ms_ingredient: process.env.MS_INGREDIENT_URL,
+  ms_process: process.env.MS_PROCESS_URL,
 };
 
 app.use(cors());
 
+const isRequestFromSwaggerUI = (req) => {
+  return req.headers.referer && req.headers.referer.includes("/api-docs/");
+};
+
 app.use("/api/*", (req, res, next) => {
-  allowRequest(req, res, next);
+  if (isRequestFromSwaggerUI(req)) {
+    next();
+  } else {
+    allowRequest(req, res, next);
+  }
 });
 
 Object.entries(PROXY_TARGETS).forEach(([path, target]) => {

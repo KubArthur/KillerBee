@@ -2,17 +2,17 @@ const axios = require("axios");
 
 const swaggerFiles = [
   {
-    url: `${process.env.MC_INGREDIENT_URL}/swagger.json`,
+    url: `${process.env.MS_INGREDIENT_URL}/swagger.json`,
     basePaths: ["/"],
     tag: "Microservice: ms_ingredient",
   },
   {
-    url: `${process.env.MC_MODELE_URL}/swagger.json`,
+    url: `${process.env.MS_MODELE_URL}/swagger.json`,
     basePaths: ["/"],
     tag: "Microservice: ms_modele",
   },
   {
-    url: `${process.env.MC_PROCESS_URL}/swagger.json`,
+    url: `${process.env.MS_PROCESS_URL}/swagger.json`,
     basePaths: ["/"],
     tag: "Microservice: ms_process",
   },
@@ -36,7 +36,7 @@ async function fetchSwaggerFile(url) {
   try {
     const response = await axios.get(url, {
       headers: {
-        referer: "https://localhost:3000/api",
+        referer: "http://localhost:3000/api",
       },
     });
     console.log(`✔️ Successfully fetched ${url}`);
