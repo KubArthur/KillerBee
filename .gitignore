@@ -1,3 +1,4 @@
 .vscode/
 ini.db.js
-frontend/
+handler.js
+index.html
