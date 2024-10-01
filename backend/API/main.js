@@ -5,6 +5,7 @@ const allowRequest = require("./middlewares/allowRequest");
 const swaggerUi = require("swagger-ui-express");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const { mergeSwaggerFiles } = require("./swagger");
+const encryptionRequest = require("./encryptionRequest");
 
 const app = express();
 const port = process.env.PORT;
@@ -16,6 +17,7 @@ const PROXY_TARGETS = {
 };
 
 app.use(cors());
+app.use(express.text());
 
 const isRequestFromSwaggerUI = (req) => {
   return req.headers.referer && req.headers.referer.includes("/api-docs/");
@@ -26,6 +28,7 @@ app.use("/api/*", (req, res, next) => {
     next();
   } else {
     allowRequest(req, res, next);
+    encryptionRequest(req, res);
   }
 });
 
