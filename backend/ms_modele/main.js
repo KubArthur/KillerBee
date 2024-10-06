@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const modeleRouter = require("./controllers/modeleController");
+const modeleTestRouter = require("./controllers/modeleTestController");
 const allowRequest = require("./middlewares/allowRequest");
 const sequelize = require("./config/db");
 const fs = require("fs");
@@ -13,6 +13,7 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(allowRequest);
 app.use(express.urlencoded({ extended: true }));
 
 const swaggerDocument = JSON.parse(
@@ -24,7 +25,7 @@ app.use("/swagger.json", (req, res) => {
   res.send(swaggerDocument);
 });
 
-app.use("/", modeleRouter);
+app.use("/test", modeleTestRouter);
 
 sequelize
   .sync({ alter: true })

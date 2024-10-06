@@ -8,7 +8,7 @@ const PROXY_TARGETS = {
   ms_auth: process.env.MS_AUTH_URL,
 };
 
-const encryptionRequest = async (req, res) => {
+const encryptionRequest = async (req, res, id_user) => {
   const urlPath = req.originalUrl.substring(5);
   const [serviceName, ...rest] = urlPath.split("/");
   let serviceUrl = "";
@@ -18,7 +18,7 @@ const encryptionRequest = async (req, res) => {
   } else {
     serviceUrl = PROXY_TARGETS[serviceName];
   }
-
+  
   if (!serviceUrl) {
     return res.status(404).send("Service not found");
   }
@@ -31,7 +31,7 @@ const encryptionRequest = async (req, res) => {
     try {
       const bodyDecrypted = decrypt(req.body);
       const bodySwap = JSON.parse(bodyDecrypted);
-      
+
       let response;
 
       if (req.method === "POST") {
@@ -39,6 +39,7 @@ const encryptionRequest = async (req, res) => {
           headers: {
             "Content-Type": "application/json",
             Referer: referer,
+            Id_user: id_user,
           },
         });
       } else {
@@ -46,6 +47,7 @@ const encryptionRequest = async (req, res) => {
           headers: {
             "Content-Type": "application/json",
             Referer: referer,
+            Id_user: id_user,
           },
         });
       }
@@ -65,6 +67,7 @@ const encryptionRequest = async (req, res) => {
       const response = await axios.delete(fullUrl, {
         headers: {
           Referer: referer,
+          Id_user: id_user,
         },
       });
 
@@ -83,6 +86,7 @@ const encryptionRequest = async (req, res) => {
       const response = await axios.get(fullUrl, {
         headers: {
           Referer: referer,
+          Id_user: id_user,
         },
       });
 

@@ -6,7 +6,7 @@
     "description": "API to manage modeles and Cook relations"
   },
   "paths": {
-    "/api/ms_modele/create": {
+    "/api/ms_modele/test/create": {
       "post": {
         "summary": "Create a new modele and its Cook relations",
         "requestBody": {
@@ -66,7 +66,7 @@
         }
       }
     },
-    "/api/ms_modele": {
+    "/api/ms_modele/test": {
       "get": {
         "summary": "Get all active modeles and their Cook relations",
         "responses": {
@@ -92,7 +92,7 @@
         }
       }
     },
-    "/api/ms_modele/update": {
+    "/api/ms_modele/test/update": {
       "put": {
         "summary": "Update a modele and its Cook relations",
         "requestBody": {
@@ -157,7 +157,7 @@
         }
       }
     },
-    "/api/ms_modele/{id_modele}": {
+    "/api/ms_modele/test/{id_modele}": {
       "delete": {
         "summary": "Deactivate a modele by ID",
         "parameters": [

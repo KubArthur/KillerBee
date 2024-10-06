@@ -6,7 +6,7 @@
     "description": "API to manage processes"
   },
   "paths": {
-    "/api/ms_process/create": {
+    "/api/ms_process/test/create": {
       "post": {
         "summary": "Create a new process",
         "requestBody": {
@@ -48,7 +48,7 @@
         }
       }
     },
-    "/api/ms_process": {
+    "/api/ms_process/test": {
       "get": {
         "summary": "Get all active processes",
         "responses": {
@@ -74,7 +74,7 @@
         }
       }
     },
-    "/api/ms_process/update": {
+    "/api/ms_process/test/update": {
       "put": {
         "summary": "Update a process",
         "requestBody": {
@@ -120,7 +120,7 @@
         }
       }
     },
-    "/api/ms_process/{id_process}": {
+    "/api/ms_process/test/{id_process}": {
       "delete": {
         "summary": "Deactivate a process by ID",
         "parameters": [

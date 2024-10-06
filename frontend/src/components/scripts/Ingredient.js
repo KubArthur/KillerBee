@@ -1,7 +1,7 @@
 import { getIngredients } from "../handlers/HandlerGetIngredient";
 import { deleteIngredient } from "../handlers/HandlerDeleteIngredient";
-import { putIngredient } from "../handlers/HandlerPutIngredient"; // Handler pour mettre à jour
-import { postIngredient } from "../handlers/HandlerPostIngredient"; // Importer le handler de création
+import { putIngredient } from "../handlers/HandlerPutIngredient";
+import { postIngredient } from "../handlers/HandlerPostIngredient";
 
 export default {
   name: "IngredientPage",
@@ -12,7 +12,7 @@ export default {
       originalIngredient: null,
       newIngredient: { name: "", description: "" },
       isEditing: false,
-      isCreating: false, // Ajoute un état pour savoir si on est en mode création
+      isCreating: false,
     };
   },
   async created() {
@@ -23,6 +23,9 @@ export default {
       try {
         this.ingredients = await getIngredients();
       } catch (error) {
+        alert(
+          "Unable to fetch ingredients: " + (error.message || "Unknown error")
+        );
         console.error("Unable to fetch ingredients:", error);
       }
     },
@@ -30,7 +33,7 @@ export default {
       this.selectedIngredient = { ...ingredient };
       this.originalIngredient = { ...ingredient };
       this.isEditing = false;
-      this.isCreating = false; // Si un ingrédient est sélectionné, on n'est plus en création
+      this.isCreating = false;
     },
     showCreateForm() {
       this.isCreating = true;
@@ -42,8 +45,11 @@ export default {
         await deleteIngredient(id);
         await this.fetchIngredients();
         this.selectedIngredient = { name: "", description: "" };
+        alert("Ingredient deleted successfully");
       } catch (error) {
-        console.error("Error deleting ingredient:", error);
+        alert(
+          "Error deleting ingredient: " + (error.message || "Unknown error")
+        );
       }
     },
     async confirmUpdate() {
@@ -58,7 +64,11 @@ export default {
           await putIngredient(jsonData);
           await this.fetchIngredients();
           this.isEditing = false;
+          alert("Ingredient updated successfully");
         } catch (error) {
+          alert(
+            "Error updating ingredient: " + (error.message || "Unknown error")
+          );
           console.error("Error updating ingredient:", error);
         }
       }
@@ -78,7 +88,11 @@ export default {
         await this.fetchIngredients();
         this.newIngredient = { name: "", description: "" };
         this.isCreating = false;
+        alert("Ingredient created successfully");
       } catch (error) {
+        alert(
+          "Error creating ingredient: " + (error.message || "Unknown error")
+        );
         console.error("Error creating ingredient:", error);
       }
     },

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Modele = require("../models/modele");
 const Cook = require("../models/cook");
+const Log = require("../models/log");
 
 router.post("/create", async (req, res) => {
   try {
@@ -30,6 +31,12 @@ router.post("/create", async (req, res) => {
       });
     }
 
+    const logMessage = `Swagger created modele: ${name} - ${description} - ${unit_price_excluding_tax} - ${range} - ${weights} - ${ingredients}`;
+
+    await Log.create({
+      code: logMessage,
+    });
+
     res.status(201).json({
       message: "Modele et relations Cook créés avec succès !",
       modele,
@@ -55,6 +62,12 @@ router.get("/", async (req, res) => {
     if (modeles.length === 0) {
       return res.status(404).json({ message: "No modeles found" });
     }
+
+    const logMessage = `Swagger fetched modeles`;
+
+    await Log.create({
+      code: logMessage,
+    });
 
     res.status(200).json(modeles);
   } catch (error) {
@@ -99,6 +112,12 @@ router.put("/update", async (req, res) => {
       }
     }
 
+    const logMessage = `Swagger created modele: ${id_modele} - ${name} - ${description} - ${unit_price_excluding_tax} - ${range} - ${weights} - ${ingredients}`;
+
+    await Log.create({
+      code: logMessage,
+    });
+
     res.status(200).json({
       message: "Modele updated successfully",
       modele,
@@ -120,6 +139,12 @@ router.delete("/:id_modele", async (req, res) => {
 
     modele.isActive = false;
     await modele.save();
+
+    const logMessage = `Swagger deleted process: ${id_modele}`;
+
+    await Log.create({
+      code: logMessage,
+    });
 
     res.status(200).json({
       message: "Modele deleted successfully",

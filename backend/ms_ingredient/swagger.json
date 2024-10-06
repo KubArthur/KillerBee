@@ -6,7 +6,7 @@
     "description": "API to manage ingredients"
   },
   "paths": {
-    "/api/ms_ingredient/create": {
+    "/api/ms_ingredient/test/create": {
       "post": {
         "summary": "Create a new ingredient",
         "requestBody": {
@@ -40,7 +40,7 @@
         }
       }
     },
-    "/api/ms_ingredient": {
+    "/api/ms_ingredient/test": {
       "get": {
         "summary": "Get all active ingredients",
         "responses": {
@@ -66,7 +66,7 @@
         }
       }
     },
-    "/api/ms_ingredient/update": {
+    "/api/ms_ingredient/test/update": {
       "put": {
         "summary": "Update an ingredient",
         "requestBody": {
@@ -104,7 +104,7 @@
         }
       }
     },
-    "/api/ms_ingredient/{id_ingredient}": {
+    "/api/ms_ingredient/test/{id_ingredient}": {
       "delete": {
         "summary": "Deactivate an ingredient by ID",
         "parameters": [

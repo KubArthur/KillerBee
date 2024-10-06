@@ -5,8 +5,6 @@ const Log = require("../models/log");
 
 router.post("/create", async (req, res) => {
   try {
-    const id_user = req.headers.id_user;
-
     const {
       name,
       description,
@@ -22,7 +20,7 @@ router.post("/create", async (req, res) => {
       isActive: true,
     });
 
-    const logMessage = `${id_user} created process: ${name} - ${description} - ${model} - ${steps_and_descriptions_of_validation_tests}`;
+    const logMessage = `Swagger created process: ${name} - ${description} - ${model} - ${steps_and_descriptions_of_validation_tests}`;
 
     await Log.create({
       code: logMessage,
@@ -39,15 +37,13 @@ router.post("/create", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const id_user = req.headers.id_user;
-
     const process = await Process.findAll({ where: { isActive: true } });
 
     if (process.length === 0) {
       return res.status(404).json({ message: "No process found" });
     }
 
-    const logMessage = `${id_user} fetched processes`;
+    const logMessage = `Swagger fetched processes`;
 
     await Log.create({
       code: logMessage,
@@ -61,8 +57,6 @@ router.get("/", async (req, res) => {
 
 router.put("/update", async (req, res) => {
   try {
-    const id_user = req.headers.id_user;
-
     const {
       id_process,
       name,
@@ -80,7 +74,7 @@ router.put("/update", async (req, res) => {
       steps_and_descriptions_of_validation_tests,
     });
 
-    const logMessage = `${id_user} updated process: ${id_process} - ${name} - ${description} - ${model} - ${steps_and_descriptions_of_validation_tests}`;
+    const logMessage = `Swagger updated process: ${id_process} - ${name} - ${description} - ${model} - ${steps_and_descriptions_of_validation_tests}`;
 
     await Log.create({
       code: logMessage,
@@ -97,8 +91,6 @@ router.put("/update", async (req, res) => {
 
 router.delete("/:id_process", async (req, res) => {
   try {
-    const id_user = req.headers.id_user;
-
     const { id_process } = req.params;
 
     const process = await Process.findOne({ where: { id_process } });
@@ -110,7 +102,7 @@ router.delete("/:id_process", async (req, res) => {
     process.isActive = false;
     await process.save();
 
-    const logMessage = `${id_user} deleted process: ${id_process}`;
+    const logMessage = `Swagger deleted process: ${id_process}`;
 
     await Log.create({
       code: logMessage,

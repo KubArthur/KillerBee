@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const ingredientRouter = require("./controllers/ingredientController");
+const ingredientTestRouter = require("./controllers/ingredientTestController");
 const allowRequest = require("./middlewares/allowRequest");
 const sequelize = require("./config/db");
 const fs = require("fs");
@@ -25,6 +26,8 @@ app.use("/swagger.json", (req, res) => {
   res.send(swaggerDocument);
 });
 
+
+app.use("/test", ingredientTestRouter);
 app.use("/", ingredientRouter);
 
 sequelize

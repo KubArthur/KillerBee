@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="process-list">
+    <div class="ingredient-list">
+      <!-- Changement de nom pour correspondre au CSS -->
       <div class="header">
         <h2>Liste des Processus</h2>
         <div class="button-group">
@@ -10,7 +11,7 @@
       </div>
       <ul>
         <li
-          class="process-item"
+          class="ingredient-item"
           v-for="process in processes"
           :key="process.id_process"
           @click="selectProcess(process)"
@@ -41,12 +42,12 @@
           id="description"
           :disabled="!isEditing || !selectedProcess.id_process"
         />
-        
-        <label for="new-id">modele :</label>
+
+        <label for="model">Modèle :</label>
         <input
-          type="text"
-          v-model="newProcess.model"
-          id="new-id"
+          type="number"
+          v-model="selectedProcess.model"
+          id="model"
           required
           :disabled="!isEditing || !selectedProcess.id_process"
         />
@@ -59,7 +60,6 @@
           :disabled="!isEditing || !selectedProcess.id_process"
         />
 
-        <!-- Le bouton "Modifier" est désactivé si aucun processus n'est sélectionné ou si les champs sont vides -->
         <button
           v-if="!isEditing"
           :disabled="
@@ -73,7 +73,6 @@
           Modifier
         </button>
 
-        <!-- Les boutons "Confirmer" et "Annuler" ne s'affichent que si on modifie -->
         <button
           v-if="isEditing"
           class="confirm-button"
@@ -86,7 +85,6 @@
           Annuler
         </button>
 
-        <!-- Le bouton "Supprimer" est désactivé si aucun processus n'est sélectionné -->
         <button
           :disabled="!selectedProcess.id_process"
           class="delete-button"
@@ -108,8 +106,13 @@
           required
         />
 
-        <label for="new-id">modele :</label>
-        <input type="text" v-model="newProcess.model" id="new-id" required />
+        <label for="new-model">Modèle :</label>
+        <input
+          type="number"
+          v-model="newProcess.model"
+          id="new-model"
+          required
+        />
 
         <label for="new-steps">Étapes et Tests :</label>
         <input
@@ -118,14 +121,11 @@
           id="new-steps"
         />
 
-        <!-- Désactive le bouton "Créer" si les champs sont vides -->
         <button
           class="create-button"
           type="submit"
           :disabled="
-            !newProcess.id_process ||
-            !newProcess.name ||
-            !newProcess.description
+            !newProcess.name || !newProcess.description || !newProcess.model
           "
         >
           Créer

@@ -5,8 +5,6 @@ const Log = require("../../ms_modele/models/log");
 
 router.post("/create", async (req, res) => {
   try {
-    const id_user = req.headers.id_user;
-
     const { name, description } = req.body;
 
     let ingredient = await Ingredient.create({
@@ -15,7 +13,7 @@ router.post("/create", async (req, res) => {
       isActive: true,
     });
 
-    const logMessage = `${id_user} created ingredient: ${name} - ${description}`;
+    const logMessage = `Swagger created ingredient: ${name} - ${description}`;
 
     await Log.create({
       code: logMessage,
@@ -32,15 +30,13 @@ router.post("/create", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const id_user = req.headers.id_user;
-
     const ingredients = await Ingredient.findAll({ where: { isActive: true } });
 
     if (ingredients.length === 0) {
       return res.status(404).json({ message: "No ingredients found" });
     }
 
-    const logMessage = `${id_user} fetched ingredients`;
+    const logMessage = `Swagger fetched ingredients`;
 
     await Log.create({
       code: logMessage,
@@ -54,15 +50,13 @@ router.get("/", async (req, res) => {
 
 router.put("/update", async (req, res) => {
   try {
-    const id_user = req.headers.id_user;
-
     const { id_ingredient, name, description } = req.body;
 
     let ingredient = await Ingredient.findOne({ where: { id_ingredient } });
 
     await ingredient.update({ name, description });
 
-    const logMessage = `${id_user} updated ingredient: ${id_ingredient}`;
+    const logMessage = `Swagger updated ingredient: ${id_ingredient}`;
 
     await Log.create({
       code: logMessage,
@@ -79,8 +73,6 @@ router.put("/update", async (req, res) => {
 
 router.delete("/:id_ingredient", async (req, res) => {
   try {
-    const id_user = req.headers.id_user;
-
     const { id_ingredient } = req.params;
 
     const ingredient = await Ingredient.findOne({ where: { id_ingredient } });
@@ -92,7 +84,7 @@ router.delete("/:id_ingredient", async (req, res) => {
     ingredient.isActive = false;
     await ingredient.save();
 
-    const logMessage = `${id_user} deleted ingredient: ${id_ingredient}`;
+    const logMessage = `Swagger deleted ingredient: ${id_ingredient}`;
 
     await Log.create({
       code: logMessage,
