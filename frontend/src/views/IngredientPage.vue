@@ -2,10 +2,10 @@
   <div class="container">
     <div class="ingredient-list">
       <div class="header">
-        <h2>Liste des Ingrédients</h2>
+        <h2>Liste des matériaux</h2>
         <div class="button-group">
           <button @click="fetchIngredients">Actualiser</button>
-          <button @click="showCreateForm">Créer un Ingrédient</button>
+          <button @click="showCreateForm">Ajouter un métal</button>
         </div>
       </div>
       <ul>
@@ -23,7 +23,7 @@
 
     <div class="red-box">
       <h2 v-if="!isCreating">Détails</h2>
-      <h2 v-else>Créer un Nouvel Ingrédient</h2>
+      <h2 v-else>Ajouter un nouveau métal</h2>
 
       <form v-if="!isCreating" @submit.prevent>
         <label for="name">Nom :</label>

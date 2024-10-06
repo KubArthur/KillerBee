@@ -1,0 +1,77 @@
+/* Conteneur principal pour le formulaire de login */
+.login {
+    max-width: 400px; /* Légèrement plus large pour un confort visuel */
+    margin: 100px auto; /* Centrage avec plus de marge en haut */
+    padding: 30px;
+    background-color: #1e1e1e; /* Fond sombre */
+    border-radius: 10px; /* Bords plus arrondis pour un effet moderne */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4); /* Ombre pour l'effet flottant */
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif; /* Police moderne */
+    text-align: center; /* Centrage du texte */
+  }
+  
+  /* Titre du formulaire */
+  .login h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #ffffff;
+    font-weight: 500;
+  }
+  
+  /* Groupe de champs du formulaire */
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #b3b3b3; /* Texte légèrement plus clair pour les labels */
+    font-size: 14px;
+  }
+  
+  /* Champs de saisie */
+  input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333; /* Arrière-plan sombre pour les champs de saisie */
+    color: #e0e0e0;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  input:focus {
+    background-color: #444; /* Changement de couleur au focus */
+    outline: none;
+  }
+  
+  /* Bouton de soumission */
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #218838;
+    transform: translateY(-2px); /* Légère élévation au survol */
+  }
+  
+  /* Message d'erreur */
+  .error {
+    color: #ff4d4d; /* Rouge vif pour les erreurs */
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  

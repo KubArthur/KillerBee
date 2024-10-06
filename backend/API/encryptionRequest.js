@@ -5,12 +5,19 @@ const PROXY_TARGETS = {
   ms_modele: process.env.MS_MODELE_URL,
   ms_ingredient: process.env.MS_INGREDIENT_URL,
   ms_process: process.env.MS_PROCESS_URL,
+  ms_auth: process.env.MS_AUTH_URL,
 };
 
 const encryptionRequest = async (req, res) => {
   const urlPath = req.originalUrl.substring(5);
   const [serviceName, ...rest] = urlPath.split("/");
-  const serviceUrl = PROXY_TARGETS[serviceName];
+  let serviceUrl = "";
+
+  if (urlPath === "mc_auth") {
+    serviceUrl = process.env.MS_AUTH_URL;
+  } else {
+    serviceUrl = PROXY_TARGETS[serviceName];
+  }
 
   if (!serviceUrl) {
     return res.status(404).send("Service not found");
@@ -24,7 +31,7 @@ const encryptionRequest = async (req, res) => {
     try {
       const bodyDecrypted = decrypt(req.body);
       const bodySwap = JSON.parse(bodyDecrypted);
-
+      
       let response;
 
       if (req.method === "POST") {

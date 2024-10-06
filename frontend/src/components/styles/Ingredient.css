@@ -3,39 +3,45 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: #1e1e1e;
-  color: #fff;
+  background-color: #121212; /* Couleur plus sombre pour l'arrière-plan */
+  color: #e0e0e0; /* Texte légèrement gris pour le contraste */
   height: 100vh;
-  box-sizing: border-box; /* Ajouté pour gérer les marges intérieures */
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif; /* Police moderne */
 }
 
 /* Liste des ingrédients */
 .ingredient-list {
   width: 40%;
-  background-color: #333;
+  background-color: #1e1e1e;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  overflow-y: auto; /* Permet le scroll si la liste est longue */
+  border-radius: 10px; /* Coins plus arrondis pour un style plus doux */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Ombre subtile pour un effet flottant */
+  overflow-y: auto;
 }
 
 .ingredient-list h2 {
   margin-bottom: 20px;
   font-size: 24px;
+  color: #ffffff; /* Texte blanc pour les titres */
+  font-weight: 500;
 }
 
 .ingredient-item {
-  padding: 10px;
-  background-color: #444;
-  margin-bottom: 10px; /* Espacement pour s'assurer que les items sont séparés */
-  border-radius: 4px;
+  padding: 12px;
+  background-color: #272727; /* Gris plus doux pour les items */
+  margin-bottom: 12px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: block; /* Forcer les items à s'empiler verticalement */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Ajout d'une transition pour l'effet moderne */
+  display: block;
 }
 
 .ingredient-item:hover {
-  background-color: #555;
+  background-color: #373737;
+  transform: translateY(
+    -3px
+  ); /* Légère élévation lors du survol pour un effet moderne */
 }
 
 /* Détails affichés dans la boîte rouge */
@@ -44,16 +50,17 @@
   background-color: #b30000;
   padding: 20px;
   color: white;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4); /* Ombre plus marquée pour la boîte */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .red-box h2 {
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: 500;
 }
 
 .red-box form {
@@ -63,13 +70,19 @@
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-bottom: 20px;
   border: none;
-  border-radius: 4px;
-  background-color: #444;
-  color: white;
+  border-radius: 6px;
+  background-color: #2d2d2d; /* Couleur sombre pour les inputs */
+  color: #e0e0e0; /* Texte clair */
   font-size: 16px;
+  transition: background-color 0.3s ease; /* Transition douce pour un effet d'interaction */
+}
+
+input:focus {
+  background-color: #3a3a3a;
+  outline: none;
 }
 
 /* Boutons pour les actions */
@@ -79,27 +92,29 @@ button {
   color: white;
   font-size: 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px; /* Coins arrondis pour un style plus moderne */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animation lors de l'interaction */
 }
 
 /* Bouton Modifier */
 .update-button {
-  background-color: #0066cc;
+  background-color: #007bff;
 }
 
 .update-button:hover {
-  background-color: #005bb5;
+  background-color: #0069d9;
+  transform: translateY(-2px); /* Effet de survol moderne */
 }
 
 /* Bouton Supprimer */
 .delete-button {
-  background-color: #b30000;
+  background-color: #ff4d4d;
 }
 
 .delete-button:hover {
-  background-color: #ff1a1a;
+  background-color: #ff3333;
+  transform: translateY(-2px);
 }
 
 /* Bouton Confirmer */
@@ -109,6 +124,7 @@ button {
 
 .confirm-button:hover {
   background-color: #218838;
+  transform: translateY(-2px);
 }
 
 /* Bouton Annuler */
@@ -118,12 +134,20 @@ button {
 
 .cancel-button:hover {
   background-color: #c82333;
+  transform: translateY(-2px);
 }
 
+/* Bouton Créer */
 .create-button {
   background-color: #28a745;
 }
 
 .create-button:hover {
   background-color: #218838;
+  transform: translateY(-2px);
+}
+
+/* Animation au survol pour tous les boutons */
+button:hover {
+  transform: translateY(-2px);
 }

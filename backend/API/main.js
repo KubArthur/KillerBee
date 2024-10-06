@@ -13,6 +13,7 @@ const PROXY_TARGETS = {
   ms_modele: process.env.MS_MODELE_URL,
   ms_ingredient: process.env.MS_INGREDIENT_URL,
   ms_process: process.env.MS_PROCESS_URL,
+  ms_auth: process.env.MS_AUTH_URL,
 };
 
 app.use(cors());
