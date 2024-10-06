@@ -5,7 +5,6 @@ const allowRequest = require("./middlewares/allowRequest");
 const swaggerUi = require("swagger-ui-express");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const { mergeSwaggerFiles } = require("./swagger");
-const encryptionRequest = require("./encryptionRequest");
 
 const app = express();
 const port = process.env.PORT;
@@ -27,7 +26,7 @@ app.use("/api/*", (req, res, next) => {
   if (isRequestFromSwaggerUI(req)) {
     next();
   } else {
-    encryptionRequest(req, res);
+    allowRequest(req, res);
   }
 });
 

@@ -1,10 +1,11 @@
-const allowRequest = (req, res, next) => {
+const encryptionRequest = require("../encryptionRequest");
+
+const allowRequest = (req, res) => {
   try {
     if (
-      req.headers.referer.includes("/api") ||
       req.headers.origin.startsWith(process.env.ALLOWED_ORIGIN)
     ) {
-      next();
+      encryptionRequest(req, res);
     }
   } catch (err) {
     res.status(403).json({ message: "Forbidden" });

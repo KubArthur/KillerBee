@@ -11,13 +11,14 @@ const encryptionRequest = async (req, res) => {
   const urlPath = req.originalUrl.substring(5);
   const [serviceName, ...rest] = urlPath.split("/");
   const serviceUrl = PROXY_TARGETS[serviceName];
-  console.log("", serviceUrl);
-  console.log("", urlPath);
+
   if (!serviceUrl) {
     return res.status(404).send("Service not found");
   }
 
   const fullUrl = `${serviceUrl}/${rest.join("/")}`;
+
+  const referer = process.env.ALLOWED_REFERER || "http://localhost:3000/api";
 
   if (req.method === "POST" || req.method === "PUT") {
     try {
@@ -30,16 +31,18 @@ const encryptionRequest = async (req, res) => {
         response = await axios.post(fullUrl, bodySwap, {
           headers: {
             "Content-Type": "application/json",
+            Referer: referer,
           },
         });
       } else {
         response = await axios.put(fullUrl, bodySwap, {
           headers: {
             "Content-Type": "application/json",
+            Referer: referer,
           },
         });
       }
-      
+
       const message = JSON.stringify(response.data);
       const messageCrypted = encrypt(message);
 
@@ -52,7 +55,11 @@ const encryptionRequest = async (req, res) => {
 
   if (req.method === "DELETE") {
     try {
-      const response = await axios.delete(fullUrl);
+      const response = await axios.delete(fullUrl, {
+        headers: {
+          Referer: referer,
+        },
+      });
 
       const message = JSON.stringify(response.data);
       const messageCrypted = encrypt(message);
@@ -66,8 +73,11 @@ const encryptionRequest = async (req, res) => {
 
   if (req.method === "GET") {
     try {
-      console.log(fullUrl);
-      const response = await axios.get(fullUrl);
+      const response = await axios.get(fullUrl, {
+        headers: {
+          Referer: referer,
+        },
+      });
 
       const message = JSON.stringify(response.data);
       const messageCrypted = encrypt(message);

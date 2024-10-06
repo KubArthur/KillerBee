@@ -1,9 +1,6 @@
 const allowRequest = (req, res, next) => {
   try {
-    if (
-      req.headers.referer.startsWith(process.env.ALLOWED_REFERER) ||
-      req.headers.origin.startsWith(process.env.ALLOWED_ORIGIN)
-    ) {
+    if (req.headers.referer.startsWith(process.env.ALLOWED_REFERER)) {
       next();
     }
   } catch (err) {
