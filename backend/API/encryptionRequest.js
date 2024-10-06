@@ -11,7 +11,8 @@ const encryptionRequest = async (req, res) => {
   const urlPath = req.originalUrl.substring(5);
   const [serviceName, ...rest] = urlPath.split("/");
   const serviceUrl = PROXY_TARGETS[serviceName];
-
+  console.log("", serviceUrl);
+  console.log("", urlPath);
   if (!serviceUrl) {
     return res.status(404).send("Service not found");
   }
@@ -23,12 +24,22 @@ const encryptionRequest = async (req, res) => {
       const bodyDecrypted = decrypt(req.body);
       const bodySwap = JSON.parse(bodyDecrypted);
 
-      const response = await axios.post(fullUrl, bodySwap, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      let response;
 
+      if (req.method === "POST") {
+        response = await axios.post(fullUrl, bodySwap, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } else {
+        response = await axios.put(fullUrl, bodySwap, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+      
       const message = JSON.stringify(response.data);
       const messageCrypted = encrypt(message);
 
@@ -41,7 +52,7 @@ const encryptionRequest = async (req, res) => {
 
   if (req.method === "DELETE") {
     try {
-      const response = await axios.get(fullUrl);
+      const response = await axios.delete(fullUrl);
 
       const message = JSON.stringify(response.data);
       const messageCrypted = encrypt(message);
@@ -55,6 +66,7 @@ const encryptionRequest = async (req, res) => {
 
   if (req.method === "GET") {
     try {
+      console.log(fullUrl);
       const response = await axios.get(fullUrl);
 
       const message = JSON.stringify(response.data);

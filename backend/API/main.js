@@ -27,7 +27,6 @@ app.use("/api/*", (req, res, next) => {
   if (isRequestFromSwaggerUI(req)) {
     next();
   } else {
-    allowRequest(req, res, next);
     encryptionRequest(req, res);
   }
 });

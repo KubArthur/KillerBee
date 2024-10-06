@@ -13,7 +13,6 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(allowRequest);
 app.use(express.urlencoded({ extended: true }));
 
 const swaggerDocument = JSON.parse(
